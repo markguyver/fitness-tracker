@@ -1,0 +1,32 @@
+{
+  "name": "fitness-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "rm -rf dist && tsc",
+    "develop": "npm run compile && nodemon dist",
+    "start": "pm2 start dist/index.js"
+  },
+  "author": "Mark Chavez <mark.chavez@startmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-pino-logger": "^5.0.0",
+    "immutable": "^4.0.0-rc.12",
+    "mysql2": "^2.2.5",
+    "pino": "^6.8.0",
+    "ramda": "^0.27.1",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "@types/express-pino-logger": "^4.0.2",
+    "@types/node": "^14.14.12",
+    "@types/pino": "^6.3.4",
+    "@types/ramda": "^0.27.32",
+    "@types/sequelize": "^4.28.9",
+    "typescript": "^4.1.3"
+  }
+}

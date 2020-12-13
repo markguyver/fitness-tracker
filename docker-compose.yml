@@ -1,0 +1,42 @@
+version: "3"
+services:
+  server:
+    build: ./server
+    command: npm run develop
+    container_name: fitness-server
+    environment:
+      - DB_HOSTNAME=fitness-database-relational
+      - LOG_LEVEL=debug
+    image: fitness-server
+    networks:
+      - fitness-network
+    ports:
+      - 5000:5000/tcp
+    volumes:
+      - ./server/application:/var/node
+  client:
+    build: ./client
+    command: npm run serve -- --port 3000
+    container_name: fitness-client
+    image: fitness-client
+    networks:
+      - fitness-network
+    ports:
+      - 3000:3000/tcp
+    volumes:
+      - ./client/application:/var/node
+  database-relational:
+    container_name: fitness-database-relational
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+    image: mariadb:10.5.8
+    networks:
+      - fitness-network
+    ports:
+      - 3306:3306/tcp
+    volumes:
+      - fitness-relational-datadir:/var/lib/mysql
+networks:
+  fitness-network:
+volumes:
+  fitness-relational-datadir:

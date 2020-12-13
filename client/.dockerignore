@@ -1,0 +1,6 @@
+application/node_modules
+application/dist
+application/vue.config.js
+
+application/**/.git*
+application/**/*.md
