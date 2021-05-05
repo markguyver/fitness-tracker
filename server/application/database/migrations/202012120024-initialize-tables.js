@@ -15,6 +15,10 @@ module.exports = {
                 type: Sequelize.STRING(255),
                 allowNull: false,
             },
+            note: {
+                type: Sequelize.STRING(255),
+                allowNull: true,
+            },
         });
         await queryInterface.addIndex('metric_types', {
             name: 'metric_type_name_unique',
@@ -88,6 +92,20 @@ module.exports = {
                 order: 'ASC',
             },{
                 name: 'metric_type_id',
+                order: 'ASC',
+            },{
+                name: 'metric_unit_id',
+                order: 'ASC',
+            }],
+        });
+        await queryInterface.addIndex('measurements', {
+            name: 'measurement_types',
+            unique: false,
+            fields: [{
+                name: 'metric_type_id',
+                order: 'ASC',
+            },{
+                name: 'time',
                 order: 'ASC',
             },{
                 name: 'metric_unit_id',
