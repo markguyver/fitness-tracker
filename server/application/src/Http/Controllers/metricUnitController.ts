@@ -1,15 +1,22 @@
 import {Request, Response, Router} from 'express';
+
 import {sequelizeInstance} from '../../database';
-import {fetchAllMetricUnitsAndRespond} from '../helpers';
+import {
+    respondWithResource404,
+    respondWithResourceList,
+    fetchAllAndRespond
+} from '../helpers';
 
 // Initialize Database Models
 const MetricUnit = sequelizeInstance.models.MetricUnit;
 
 // Define Endpoint Handlers
-const getAllMetricUnits = (request: Request, response: Response): Response => fetchAllMetricUnitsAndRespond({
+const respondWithMetricUnitNotFound = respondWithResource404('Metric Unit');
+const respondWithMetricUnitsPayload = respondWithResourceList('MetricUnits');
+const getAllMetricUnits = fetchAllAndRespond(MetricUnit, respondWithMetricUnitsPayload, {
     attributes: ['id', 'name'],
     order: [['name', 'ASC']],
-}, response);
+});
 
 // Register Resource Routes
 export const metricUnitsRoutes = Router();

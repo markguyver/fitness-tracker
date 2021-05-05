@@ -25,6 +25,7 @@ class FitnessModel extends Model {
 class MetricType extends FitnessModel {
     public id!: number;
     public name!: string;
+    public note!: string;
 }
 MetricType.init({
     id: {
@@ -36,6 +37,10 @@ MetricType.init({
     name: {
         type: DataTypes.STRING(255),
         allowNull: false,
+    },
+    note: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
     },
 },{
     sequelize: sequelizeInstance,
@@ -93,7 +98,7 @@ class Measurement extends FitnessModel {
     public metric_type_id!: number;
     public metric_unit_id!: number;
     public measurement!: number;
-    // TODO: Add date and time columns?
+    public time!: Date;
 }
 Measurement.init({
     id: {
@@ -112,6 +117,10 @@ Measurement.init({
     },
     measurement: {
         type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    time: {
+        type: DataTypes.DATE,
         allowNull: false,
     },
 },{
