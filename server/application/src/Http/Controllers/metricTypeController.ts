@@ -1,22 +1,22 @@
-import {Request, Response, Router} from 'express';
-
-import {sequelizeInstance} from '../../database';
+import { Router } from 'express';
+import { sequelizeInstance } from '../../database';
 import {
-    respondWithResource404,
+    provideFindOptionsUnmodified,
+    respondWithResourceNotFound,
     respondWithResourceList,
-    fetchAllAndRespond
+    findAllAndRespond
 } from '../helpers';
 
 // Initialize Database Models
 const MetricType = sequelizeInstance.models.MetricType;
 
 // Define Endpoint Handlers
-const respondWithMetricTypeNotFound = respondWithResource404('Metric Type');
+const respondWithMetricTypeNotFound = respondWithResourceNotFound('Metric Type');
 const respondWithMetricTypesPayload = respondWithResourceList('MetricTypes');
-const getAllMetricTypes = fetchAllAndRespond(MetricType, respondWithMetricTypesPayload, {
+const getAllMetricTypes = findAllAndRespond(MetricType, respondWithMetricTypesPayload, provideFindOptionsUnmodified({
     attributes: ['id', 'name'],
     order: [['name', 'ASC']],
-});
+}));
 
 // Register Resource Routes
 export const metricTypesRoutes = Router();
