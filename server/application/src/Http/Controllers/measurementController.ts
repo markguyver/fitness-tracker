@@ -57,7 +57,7 @@ const extractYearAndMonthFromRequest = (findOptions: FindOptions, request: Reque
     return Object.assign(findOptions, { having: {
         [Op.and]: [
             Sequelize.where(Sequelize.col('time_year'), '=', requestYear.toString()),
-            Sequelize.where(Sequelize.col('time_month'), '=', (1 == requestMonth.toString().length ? '0' : null) + requestMonth.toString()),
+            Sequelize.where(Sequelize.col('time_month'), '=', (1 == requestMonth.toString().length ? '0' : '') + requestMonth.toString()),
         ]
     } });
 };
