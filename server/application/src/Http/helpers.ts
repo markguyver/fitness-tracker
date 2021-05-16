@@ -33,9 +33,10 @@ export const provideFindOptionsUnmodified = curry((findOptions: FindOptions, req
 export const provideFindOptionsModified = curry((findOptions: FindOptions, findOptionsModifier: (findOptions: FindOptions, request: Request) => FindOptions, request: Request): FindOptions => findOptionsModifier(findOptions, request));
 
 // Prepare HTTP Response Error Helpers
-export const respondWith400 = (response: Response, responseBody: string = 'Bad request'): Response => response.status(400).send(responseBody);
-export const respondWith404 = (response: Response, responseBody: string = 'Not found'): Response => response.status(404).send(responseBody);
-export const respondWith500 = (response: Response, responseBody: string = 'An unexpected error has occurred'): Response => response.status(500).send(responseBody);
+const respondWithCode = (httpStatusCode: number, response: Response, responseBody: string): Response => response.status(httpStatusCode).send(responseBody);
+export const respondWith400 = (response: Response, responseBody: string = 'Bad request'): Response => respondWithCode(400, response, responseBody);
+export const respondWith404 = (response: Response, responseBody: string = 'Not found'): Response => respondWithCode(404, response, responseBody);
+export const respondWith500 = (response: Response, responseBody: string = 'An unexpected error has occurred'): Response => respondWithCode(500, response, responseBody);
 
 // Prepare HTTP Resource Response Helpers
 export const respondWithResourceList = curry((resourceName: string, response: Response, resourceData: Array<Model>, statusCode: number = 200) => {
